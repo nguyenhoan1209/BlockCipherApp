@@ -6,13 +6,12 @@ from Crypto.Random import get_random_bytes
 import os
 import tempfile
 from io import BytesIO
-from streamlit.elements import image
 from streamlit_option_menu import option_menu
 from PIL import Image
 import base64
 
-icon = Image.open("icon_app.png")
-st.set_page_config(page_title="BlockCipherApp",page_icon=icon,layout="wide")
+
+st.set_page_config(page_title="BlockCipherApp",layout="wide")
 
 col1,col2 = st.columns([3,1])
 # Define AES modes
@@ -178,8 +177,6 @@ def main():
     # Streamlit app
     
     with st.sidebar:
-        image=Image.open("logo_app_c.png")
-        st.image(image=image)
         st.markdown("#### Chọn chức năng ####")
         selected = option_menu("Main Menu", ["Mã hóa", "Giải mã"],
                                icons=['lock', 'key'],
@@ -217,27 +214,6 @@ def main():
                         key = None
                 except ValueError:
                     st.warning("Giá trị khóa chưa đúng. Vui lòng nhập lại")
-            if mode =="ECB":
-                en_img = Image.open('ECB.png')
-                st.markdown("Sơ đồ mã hóa")
-                st.image(en_img)
-            if mode =="CBC":
-                en_img = Image.open('CBC.png')
-                st.markdown("Sơ đồ mã hóa")
-                st.image(en_img)
-            if mode =="CFB":
-                en_img = Image.open('CFB.png')
-                st.markdown("Sơ đồ mã hóa")
-                st.image(en_img)
-            if mode =="OFB":
-                en_img = Image.open('OFB.png')
-                st.markdown("Sơ đồ mã hóa")
-                st.image(en_img)
-            if mode =="CTR":
-                en_img = Image.open('CTR.png')
-                st.markdown("Sơ đồ mã hóa")
-                st.image(en_img)
-
             # Encrypt
             # Encrypt button
             if st.button("Encrypt"):
