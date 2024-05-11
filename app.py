@@ -11,17 +11,18 @@ from PIL import Image
 import base64
 
 
-st.set_page_config(page_title="BlockCipherApp",layout="wide")
+st.set_page_config(page_title="BlockCipherApp", layout="wide")
 
-col1,col2 = st.columns([3,1])
+col1, col2 = st.columns([3, 1])
 # Define AES modes
 MODES = {
     "ECB": AES.MODE_ECB,
     "CBC": AES.MODE_CBC,
     "CTR": AES.MODE_CTR,
     "CFB": AES.MODE_CFB,
-    "OFB": AES.MODE_OFB
+    "OFB": AES.MODE_OFB,
 }
+
 
 def encrypt_file(file_path, key, mode, iv=None):
     if mode == AES.MODE_ECB:
@@ -29,12 +30,13 @@ def encrypt_file(file_path, key, mode, iv=None):
     else:
         cipher = AES.new(key, mode, iv)
 
-    with open(file_path, 'rb') as f:
+    with open(file_path, "rb") as f:
         plaintext = f.read()
 
     padded_data = pad(plaintext, AES.block_size)
     encrypted_data = cipher.encrypt(padded_data)
     return encrypted_data
+
 
 def decrypt_file(file_path, key, mode, iv=None):
     if mode == AES.MODE_ECB:
@@ -44,7 +46,7 @@ def decrypt_file(file_path, key, mode, iv=None):
             raise ValueError("IV is required for this decryption mode.")
         cipher = AES.new(key, mode, iv)
 
-    with open(file_path, 'rb') as f:
+    with open(file_path, "rb") as f:
         encrypted_data = f.read()
 
     decrypted_data = cipher.decrypt(encrypted_data)
@@ -53,7 +55,8 @@ def decrypt_file(file_path, key, mode, iv=None):
 
 
 def search():
-    st.markdown("""
+    st.markdown(
+        """
             <head>
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -99,28 +102,31 @@ def search():
             </style>
             </head>
             <body>
-            """, 
-            unsafe_allow_html=True)
+            """,
+        unsafe_allow_html=True,
+    )
 
-    st.markdown("""
+    st.markdown(
+        """
             <form class="example" action="" style="margin:auto;max-width:300px">
             <input type="text" placeholder="Search.." name="search2">
             <button type="submit"><i class="fa fa-search"></i></button>
             </form>""",
-            unsafe_allow_html=True)
+        unsafe_allow_html=True,
+    )
     st.markdown(
-                """
+        """
                 <head>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
                 </head>
                 """,
-                unsafe_allow_html=True
-            )
+        unsafe_allow_html=True,
+    )
 
 
 def list_author():
     st.markdown(
-                """
+        """
                 <style>
                 .c {
                     margin-top: 100px ;
@@ -129,10 +135,10 @@ def list_author():
 
                 <div class="c"></div>
                 """,
-                unsafe_allow_html=True
-            )
+        unsafe_allow_html=True,
+    )
     st.markdown(
-                """
+        """
                 <style>
                 .faded-text {
                     color: rgba(0, 0, 0, 0.5);
@@ -140,12 +146,12 @@ def list_author():
                 }
                 </style>
                 """,
-                unsafe_allow_html=True
-            )
+        unsafe_allow_html=True,
+    )
 
     st.markdown('<h6 class="faded-text">Nhóm sinh viên:</h6>', unsafe_allow_html=True)
     st.markdown(
-                """
+        """
                 <style>
                 .styled-metric {
                     background-color: #f0f2f6;
@@ -162,35 +168,63 @@ def list_author():
                 }
                 </style>
                 """,
-                unsafe_allow_html=True
-            )
+        unsafe_allow_html=True,
+    )
 
-            # Display the styled metrics with Facebook icons
-    st.markdown('<div class="styled-metric"><i class="far fa-user"></i> Nguyễn Văn Hoàn</div>', unsafe_allow_html=True)
-    st.markdown('<div class="styled-metric"><i class="far fa-user"></i>Nguyễn Đức Hiếu</div>', unsafe_allow_html=True)
-    st.markdown('<div class="styled-metric"><i class="far fa-user"></i>Nguyễn T.Huy Hoàng</div>', unsafe_allow_html=True)
-    st.markdown('<div class="styled-metric"><i class="far fa-user"></i> Vũ Nhật Minh</div>', unsafe_allow_html=True)
-    st.markdown('<div class="styled-metric"><i class="far fa-user"></i> Hoàng Văn Tú</div>', unsafe_allow_html=True)
-        
-        
+    # Display the styled metrics with Facebook icons
+    st.markdown(
+        '<div class="styled-metric"><i class="far fa-user"></i> Nguyễn Văn Hoàn</div>',
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        '<div class="styled-metric"><i class="far fa-user"></i>Nguyễn Đức Hiếu</div>',
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        '<div class="styled-metric"><i class="far fa-user"></i>Nguyễn T.Huy Hoàng</div>',
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        '<div class="styled-metric"><i class="far fa-user"></i> Vũ Nhật Minh</div>',
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        '<div class="styled-metric"><i class="far fa-user"></i> Hoàng Văn Tú</div>',
+        unsafe_allow_html=True,
+    )
+
+
 def main():
     # Streamlit app
-    
+
     with st.sidebar:
         st.markdown("#### Chọn chức năng ####")
-        selected = option_menu("Main Menu", ["Mã hóa", "Giải mã"],
-                               icons=['lock', 'key'],
-                               menu_icon="cast", default_index=0, styles={
+        selected = option_menu(
+            "Main Menu",
+            ["Mã hóa", "Giải mã"],
+            icons=["lock", "key"],
+            menu_icon="cast",
+            default_index=0,
+            styles={
                 "container": {"padding": "5!important", "background-color": "#fafafa"},
                 "icon": {"color": "black", "font-size": "15px"},
-                "nav-link": {"font-size": "15px", "text-align": "left", "margin": "0px", "--hover-color": "f0f0f0","color": "#545454"},
-            })
+                "nav-link": {
+                    "font-size": "15px",
+                    "text-align": "left",
+                    "margin": "0px",
+                    "--hover-color": "f0f0f0",
+                    "color": "#545454",
+                },
+            },
+        )
 
     # User input
     if selected == "Mã hóa":
         with col1:
             col1.title("Block Cipher Encryption")
-            uploaded_en_file = st.file_uploader("Tải lên file để mã hóa", type=["txt", "enc"])
+            uploaded_en_file = st.file_uploader(
+                "Tải lên file để mã hóa", type=["txt", "enc"]
+            )
             key_length = st.selectbox("Chọn độ dài khóa:", [128, 192, 256])
             mode = st.selectbox("Chọn chế độ mã khối:", list(MODES.keys()))
             key_input = st.text_input("Nhập khóa bí mật (hex format):")
@@ -221,13 +255,17 @@ def main():
                     try:
                         # Save the uploaded file to a temporary location
                         temp_dir = tempfile.TemporaryDirectory()
-                        temp_file_path = os.path.join(temp_dir.name, uploaded_en_file.name)
+                        temp_file_path = os.path.join(
+                            temp_dir.name, uploaded_en_file.name
+                        )
                         with open(temp_file_path, "wb") as temp_file:
                             temp_file.write(uploaded_en_file.read())
 
                         # Encrypt the file and measure the time
                         start_time = time.time()
-                        encrypted_data = encrypt_file(temp_file_path, key, MODES[mode], iv)
+                        encrypted_data = encrypt_file(
+                            temp_file_path, key, MODES[mode], iv
+                        )
                         end_time = time.time()
 
                         # Display encryption time
@@ -242,7 +280,7 @@ def main():
                             label="Download Encrypted File",
                             data=encrypted_file,
                             file_name=f"encrypted_{uploaded_en_file.name}",
-                            mime='application/octet-stream'
+                            mime="application/octet-stream",
                         )
 
                         # Clean up the temporary directory
@@ -252,19 +290,16 @@ def main():
                 else:
                     st.warning("Hãy tải file và nhập khóa !!!")
         with col2:
-            
+
             search()
             list_author()
-            
-            
 
-
-            
-            
     elif selected == "Giải mã":
         col1.title("Block Cipher Decryption")
         with col1:
-            uploaded_de_file = st.file_uploader("Tải file lên để giải mã", type=["txt", "enc"])
+            uploaded_de_file = st.file_uploader(
+                "Tải file lên để giải mã", type=["txt", "enc"]
+            )
             key_length = st.selectbox("Chọn độ dài khóa :", [128, 192, 256])
             mode = st.selectbox("Chọn chế độ :", list(MODES.keys()))
             key_input = st.text_input("Nhập khóa bí mật :")
@@ -297,13 +332,17 @@ def main():
                     try:
                         # Save the uploaded file to a temporary location
                         temp_dir = tempfile.TemporaryDirectory()
-                        temp_file_path = os.path.join(temp_dir.name, uploaded_de_file.name)
+                        temp_file_path = os.path.join(
+                            temp_dir.name, uploaded_de_file.name
+                        )
                         with open(temp_file_path, "wb") as temp_file:
                             temp_file.write(uploaded_de_file.read())
 
                         # Decrypt the file and measure the time
                         start_time = time.time()
-                        decrypted_data = decrypt_file(temp_file_path, key, MODES[mode], iv)
+                        decrypted_data = decrypt_file(
+                            temp_file_path, key, MODES[mode], iv
+                        )
                         end_time = time.time()
 
                         # Display decryption time
@@ -318,7 +357,7 @@ def main():
                             label="Download Decrypted File",
                             data=decrypted_file,
                             file_name=f"decrypted_{uploaded_de_file.name}",
-                            mime='application/octet-stream'
+                            mime="application/octet-stream",
                         )
 
                         # Clean up the temporary directory
@@ -332,6 +371,6 @@ def main():
             search()
             list_author()
 
+
 if __name__ == "__main__":
     main()
-
